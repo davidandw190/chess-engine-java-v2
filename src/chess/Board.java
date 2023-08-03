@@ -1,8 +1,8 @@
+package chess;
 
-import pieces.*;
+import chess.pieces.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class Board {
@@ -37,7 +37,6 @@ public class Board {
             char c = pattern.charAt(i);
             int n = (int) c;
 
-            // add the appropriate piece type in terms of c in pattern
             switch (c) {
                 case 'r' -> boardPieces.add(new Rook('b'));
                 case 'n' -> boardPieces.add(new Knight('b'));
@@ -87,6 +86,19 @@ public class Board {
 
     }
 
+    public static ArrayList<int[]> findAttacks(Piece piece){
+        if (piece.name.equals("Pawn")) {
+            Pawn pawn = (Pawn) piece;
+            return null;
+        }
+        else{
+            return findLegalMoves(piece);
+        }
+    }
+
+    private static ArrayList<int[]> findLegalMoves(Piece piece) {
+        return null;
+    }
 
 
     private static int findPositionByLocation(int[] coords) {
