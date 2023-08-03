@@ -4,6 +4,7 @@ import chess.pieces.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Board {
 
@@ -93,11 +94,44 @@ public class Board {
         }
         else{
             return findLegalMoves(piece);
+
         }
     }
 
     private static ArrayList<int[]> findLegalMoves(Piece piece) {
-        return null;
+        ArrayList<int[]>legalMoves;
+
+        switch (piece.name) {
+            case "Pawn" -> {
+                Pawn thisPawn = (Pawn) piece;
+                legalMoves= thisPawn.legalMoves();
+            }
+            case "Knight" -> {
+                Knight thisKnight = (Knight) piece;
+                legalMoves= thisKnight.legalMoves();
+            }
+            case "Bishop" -> {
+                Bishop thisBishop = (Bishop) piece;
+                legalMoves= thisBishop.legalMoves();
+            }
+            case "Rook" -> {
+                Rook thisRook = (Rook) piece;
+                legalMoves= thisRook.legalMoves();
+            }
+            case "Queen" -> {
+                Queen thisQueen = (Queen) piece;
+                legalMoves = thisQueen.legalMoves();
+            }
+            case "King" -> {
+                King thisKing = (King) piece;
+                legalMoves = thisKing.legalMoves();
+            }
+            default -> {
+                return null;
+            }
+        }
+
+        return legalMoves;
     }
 
 
