@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.1 - Bootstrapped application;">
-      <change afterPath="$PROJECT_DIR$/src/Board.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Piece.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pieces/Pawn.java" afterDir="false" />
+    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.3 - bootstrapped piece types and worked on `setBoard` func in `Board`;">
+      <change afterPath="$PROJECT_DIR$/src/pieces/EmptySquare.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pieces/Piece.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,21 +31,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/davidandw190/Projects/Java-Projects/chess-engine-java",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/davidandw190/Projects/Java-Projects/chess-engine-java&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="ChessApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ChessApplication" />
@@ -68,7 +69,10 @@
       <option name="presentableId" value="Default" />
       <updated>1690125626703</updated>
       <workItem from="1690125627696" duration="1068000" />
-      <workItem from="1690127943521" duration="1454000" />
+      <workItem from="1690127943521" duration="2865000" />
+      <workItem from="1690136452285" duration="662000" />
+      <workItem from="1690187628668" duration="74000" />
+      <workItem from="1691069915750" duration="3237000" />
     </task>
     <task id="LOCAL-00001" summary="v0.1 - Bootstrapped application;">
       <option name="closed" value="true" />
@@ -78,7 +82,23 @@
       <option name="project" value="LOCAL" />
       <updated>1690128408195</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="v0.2 - added assets, started working on `Piece` and `Board`; ;">
+      <option name="closed" value="true" />
+      <created>1690129794906</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1690129794906</updated>
+    </task>
+    <task id="LOCAL-00003" summary="v0.3 - bootstrapped piece types and worked on `setBoard` func in `Board`;">
+      <option name="closed" value="true" />
+      <created>1690130792472</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1690130792472</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -86,6 +106,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="v0.1 - Bootstrapped application;" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.1 - Bootstrapped application;" />
+    <MESSAGE value="v0.2 - added assets, started working on `Piece` and `Board`; ;" />
+    <MESSAGE value="v0.3 - bootstrapped piece types and worked on `setBoard` func in `Board`;" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.3 - bootstrapped piece types and worked on `setBoard` func in `Board`;" />
   </component>
 </project>

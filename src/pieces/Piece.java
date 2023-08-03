@@ -27,5 +27,10 @@ public abstract class Piece {
         this.symbol= symbol;
     }
 
+    public void setPosition(int row, int column) {
+        this.row = row;
+        this.column = column;
+    }
+
 
 }
