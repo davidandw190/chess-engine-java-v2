@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.4 - set up `move` method in `Board`;">
-      <change afterPath="$PROJECT_DIR$/src/chess/pieces/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Bishop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/EmptySquare.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/EmptySquare.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/King.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Knight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Pawn.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Queen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Rook.java" afterDir="false" />
-    </list>
+    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.6 - Worked on legal moves, and rest of the pieces;" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -81,7 +69,7 @@
       <workItem from="1690136452285" duration="662000" />
       <workItem from="1690187628668" duration="74000" />
       <workItem from="1691069915750" duration="7212000" />
-      <workItem from="1691088516970" duration="2161000" />
+      <workItem from="1691088516970" duration="4346000" />
     </task>
     <task id="LOCAL-00001" summary="v0.1 - Bootstrapped application;">
       <option name="closed" value="true" />
@@ -115,7 +103,23 @@
       <option name="project" value="LOCAL" />
       <updated>1691073550200</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="v0.5 - Worked on Pawn and King pieces, started implementing the attacks' logic;">
+      <option name="closed" value="true" />
+      <created>1691090822080</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1691090822080</updated>
+    </task>
+    <task id="LOCAL-00006" summary="v0.6 - Worked on legal moves, and rest of the pieces;">
+      <option name="closed" value="true" />
+      <created>1691094785802</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1691094785802</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -126,6 +130,8 @@
     <MESSAGE value="v0.2 - added assets, started working on `Piece` and `Board`; ;" />
     <MESSAGE value="v0.3 - bootstrapped piece types and worked on `setBoard` func in `Board`;" />
     <MESSAGE value="v0.4 - set up `move` method in `Board`;" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.4 - set up `move` method in `Board`;" />
+    <MESSAGE value="v0.5 - Worked on Pawn and King pieces, started implementing the attacks' logic;" />
+    <MESSAGE value="v0.6 - Worked on legal moves, and rest of the pieces;" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.6 - Worked on legal moves, and rest of the pieces;" />
   </component>
 </project>
