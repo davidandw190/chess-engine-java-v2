@@ -25,11 +25,82 @@ public class Pawn extends Piece {
         this.value = 1;
     }
 
+
+    /**
+     * Calculates and returns a list of legal moves for the pawn piece on the chessboard.
+     *
+     * @return An ArrayList containing the row and column coordinates of legal moves.
+     */
     @Override
     public ArrayList<int[]> legalMoves() {
 
-        int[] coords= {this.row, this.column};
-        return null;
+        ArrayList<int[]> legalMoves = new ArrayList<>();
+        char color = this.color;
+        int moveDirection = (color == 'w') ? -1 : 1;
+
+        int[] currentCoords = {this.row, this.column};
+        int currentPosition = Board.findPositionByLocation(currentCoords);
+
+
+        // to handle forward movement for pawns
+        int singleStepAhead = currentPosition + 8 * moveDirection;
+        if (isWithinBoardBounds(singleStepAhead)) {
+            Piece pieceInFront = Board.boardPieces.get(singleStepAhead);
+            if (pieceInFront.symbol.equals(" ")) {
+                int[] legalMove = {pieceInFront.row, pieceInFront.column};
+                legalMoves.add(legalMove);
+            }
+
+            // to handle double forward movement (from initial pos) for pawn
+            if ((this.row == 6 && color == 'w') || (this.row == 1 && color == 'b')) {
+                int doubleStepAhead = currentPosition + 16 * moveDirection;
+                Piece pieceTwoAhead = Board.boardPieces.get(doubleStepAhead);
+                if (pieceTwoAhead.symbol.equals(" ")) {
+                    int[] legalMove2 = {pieceTwoAhead.row, pieceTwoAhead.column};
+                    legalMoves.add(legalMove2);
+                }
+            }
+        }
+
+        // to handle diagonal attacks for pawn
+        int diagonalLeft = currentPosition + 7 * moveDirection;
+        int diagonalRight = currentPosition + 9 * moveDirection;
+        handleDiagonalAttack(diagonalLeft, color, legalMoves);
+        handleDiagonalAttack(diagonalRight, color, legalMoves);
+
+        // TODO to handle en passant capture
+        // ............
+
+
+        return legalMoves;
+    }
+
+
+    /**
+     * Handles diagonal attacks for the pawn and adds legal moves to the list.
+     *
+     * @param diagonalPosition The position to check for diagonal attack.
+     * @param color            The color of the pawn ('w' for white, 'b' for black).
+     * @param legalMoves       The ArrayList to store legal moves.
+     */
+    private void handleDiagonalAttack(int diagonalPosition, char color, ArrayList<int[]> legalMoves) {
+        if (isWithinBoardBounds(diagonalPosition)) {
+            Piece diagonalPiece = Board.boardPieces.get(diagonalPosition);
+            if ( (Math.abs(diagonalPiece.row - this.row) == 1) && (diagonalPiece.color != color)) {
+                int[] legalMove = {diagonalPiece.row, diagonalPiece.column};
+                legalMoves.add(legalMove);
+            }
+        }
+    }
+
+    /**
+     * Checks if the given position is within the bounds of the chessboard.
+     *
+     * @param position The position to check.
+     * @return true if the position is within the board bounds, false otherwise.
+     */
+    private boolean isWithinBoardBounds(int position) {
+        return position >= 0 && position < 64;
     }
 
     @Override

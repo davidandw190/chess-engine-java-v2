@@ -99,20 +99,20 @@ public class Board {
     }
 
     private static ArrayList<int[]> findLegalMoves(Piece piece) {
-        ArrayList<int[]>legalMoves;
+        ArrayList<int[]> legalMoves;
 
         switch (piece.name) {
             case "Pawn" -> {
                 Pawn thisPawn = (Pawn) piece;
-                legalMoves= thisPawn.legalMoves();
+                legalMoves = thisPawn.legalMoves();
             }
             case "Knight" -> {
                 Knight thisKnight = (Knight) piece;
-                legalMoves= thisKnight.legalMoves();
+                legalMoves = thisKnight.legalMoves();
             }
             case "Bishop" -> {
                 Bishop thisBishop = (Bishop) piece;
-                legalMoves= thisBishop.legalMoves();
+                legalMoves = thisBishop.legalMoves();
             }
             case "Rook" -> {
                 Rook thisRook = (Rook) piece;
@@ -135,7 +135,7 @@ public class Board {
     }
 
 
-    private static int findPositionByLocation(int[] coords) {
+    public static int findPositionByLocation(int[] coords) {
         return (8 * coords[0]) + coords[1];
     }
 
