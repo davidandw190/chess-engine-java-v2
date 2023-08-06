@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.6 - Worked on legal moves, and rest of the pieces;" />
+    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.7 - Added logic for determining pawn legal moves;">
+      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Pawn.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,6 +72,7 @@
       <workItem from="1690187628668" duration="74000" />
       <workItem from="1691069915750" duration="7212000" />
       <workItem from="1691088516970" duration="4346000" />
+      <workItem from="1691317856171" duration="5040000" />
     </task>
     <task id="LOCAL-00001" summary="v0.1 - Bootstrapped application;">
       <option name="closed" value="true" />
@@ -119,7 +122,15 @@
       <option name="project" value="LOCAL" />
       <updated>1691094785802</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="v0.7 - Added logic for determining pawn legal moves;">
+      <option name="closed" value="true" />
+      <created>1691324171807</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1691324171808</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,6 +143,7 @@
     <MESSAGE value="v0.4 - set up `move` method in `Board`;" />
     <MESSAGE value="v0.5 - Worked on Pawn and King pieces, started implementing the attacks' logic;" />
     <MESSAGE value="v0.6 - Worked on legal moves, and rest of the pieces;" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.6 - Worked on legal moves, and rest of the pieces;" />
+    <MESSAGE value="v0.7 - Added logic for determining pawn legal moves;" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.7 - Added logic for determining pawn legal moves;" />
   </component>
 </project>

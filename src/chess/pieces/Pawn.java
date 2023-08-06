@@ -27,6 +27,68 @@ public class Pawn extends Piece {
 
 
     /**
+     * Promotes the pawn to a higher-ranked piece if it reaches the opposite end of the board.
+     * Displays a GUI with promotion options and updates the board with the chosen piece.
+     *
+     * @throws InterruptedException If the thread is interrupted while waiting for the promotion choice.
+     */
+    public void promotion() throws InterruptedException {
+        int[] coords = {this.row, this.column};
+        int pos = Board.findPositionByLocation(coords);
+
+        int end = (this.color == 'w') ? 0 : 7;
+
+        if (this.row == end) {
+            // show prompting options in the gui
+
+            int makeOverPiece = promotion;
+            while (makeOverPiece == -1) {
+                Thread.sleep(30);
+                makeOverPiece = promotion;
+            }
+
+            Piece promotedPiece;
+            switch (makeOverPiece) {
+                case 0 -> promotedPiece = new Queen(this.row, this.column, this.color);
+                case 1 -> promotedPiece = new Rook(this.row, this.column, this.color);
+                case 2 -> promotedPiece = new Knight(this.row, this.column, this.color);
+                case 3 -> promotedPiece = new Bishop(this.row, this.column, this.color);
+
+                default -> promotedPiece = new Queen(this.row, this.column, this.color);
+            }
+
+            Board.boardPieces.set(pos, promotedPiece);
+            promotion = -1;
+            // hide promotion options in the gui
+        }
+
+    }
+
+    /**
+     * Calculates and returns a list of attack moves for the pawn piece on the chessboard.
+     *
+     * @return An ArrayList containing the row and column coordinates of attack moves.
+     */
+    public ArrayList<int[]> attacks() {
+        ArrayList<int[]> attacks = new ArrayList<>();
+
+        char oppositeColor = (this.color == 'w') ? 'b' : 'w';
+        int moveDirection = (this.color == 'w') ? -1 : 1;
+
+        int [] currentCoords = {this.row, this.column};
+        int currentPosition = Board.findPositionByLocation(currentCoords);
+
+        int diagonalLeftPosition = currentPosition + 7 * moveDirection;
+        int diagonalRightPosition = currentPosition + 9 * moveDirection;
+
+        handleDiagonalAttack(diagonalLeftPosition, oppositeColor, attacks);
+        handleDiagonalAttack(diagonalRightPosition, oppositeColor, attacks);
+
+        return attacks;
+    }
+
+
+    /**
      * Calculates and returns a list of legal moves for the pawn piece on the chessboard.
      *
      * @return An ArrayList containing the row and column coordinates of legal moves.
