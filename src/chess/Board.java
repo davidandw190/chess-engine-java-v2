@@ -140,7 +140,7 @@ public class Board {
     }
 
 
-    private static int[] findCoordinates(int location) {
+    public static int[] findCoordinates(int location) {
         int row = (int) Math.floor(location / 8.0);
         int column = location % 8;
         return new int[] {row, column};
