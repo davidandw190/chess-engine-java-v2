@@ -95,7 +95,6 @@ public class Pawn extends Piece {
      */
     @Override
     public ArrayList<int[]> legalMoves() {
-
         ArrayList<int[]> legalMoves = new ArrayList<>();
         char color = this.color;
         int moveDirection = (color == 'w') ? -1 : 1;
@@ -108,6 +107,7 @@ public class Pawn extends Piece {
         int singleStepAhead = currentPosition + 8 * moveDirection;
         if (isWithinBoardBounds(singleStepAhead)) {
             Piece pieceInFront = Board.boardPieces.get(singleStepAhead);
+
             if (pieceInFront.symbol.equals(" ")) {
                 int[] legalMove = {pieceInFront.row, pieceInFront.column};
                 legalMoves.add(legalMove);

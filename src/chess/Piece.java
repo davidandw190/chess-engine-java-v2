@@ -49,6 +49,40 @@ public abstract class Piece {
 
     public abstract void move(char piece, char[] endPosition);
 
+    public char getOppositeColor() {
+        if (this.color != ' ') {
+            return (this.color == 'w') ? 'b' : 'w';
+        }
+        return ' ';
+    }
+
+
+    protected void calculateLegalMovesInDirection(ArrayList<int[]> legalMoves, char oppositeColor, int[] direction) {
+        int legalRow = this.row + direction[0];
+        int legalColumn = this.column + direction[1];
+
+        while (isValidPosition(legalRow, legalColumn )) {
+            int[] coordinates = {legalRow, legalColumn };
+            Piece piece = Board.boardPieces.get(Board.findPositionByLocation(coordinates));
+
+            if (piece.color == color) {
+                break;
+            } else if (piece.color == oppositeColor) {
+                legalMoves.add(coordinates);
+                break;
+            } else {
+                legalMoves.add(coordinates);
+            }
+
+            legalRow += direction[0];
+            legalColumn += direction[1];
+        }
+    }
+
+    private boolean isValidPosition(int row, int column) {
+        return row >= 0 && row < 8 && column >= 0 && column < 8;
+    }
+
 
 
 

@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.7 - Added logic for determining pawn legal moves;">
+    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.10 - Added bishop legal moves logic;">
+      <change beforePath="$PROJECT_DIR$/src/chess/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Piece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Rook.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +75,7 @@
       <workItem from="1691069915750" duration="7212000" />
       <workItem from="1691088516970" duration="4346000" />
       <workItem from="1691317856171" duration="5040000" />
+      <workItem from="1691594377875" duration="3726000" />
     </task>
     <task id="LOCAL-00001" summary="v0.1 - Bootstrapped application;">
       <option name="closed" value="true" />
@@ -130,7 +133,15 @@
       <option name="project" value="LOCAL" />
       <updated>1691324171808</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="v0.10 - Added bishop legal moves logic;">
+      <option name="closed" value="true" />
+      <created>1691595951504</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1691595951504</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,6 +155,7 @@
     <MESSAGE value="v0.5 - Worked on Pawn and King pieces, started implementing the attacks' logic;" />
     <MESSAGE value="v0.6 - Worked on legal moves, and rest of the pieces;" />
     <MESSAGE value="v0.7 - Added logic for determining pawn legal moves;" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.7 - Added logic for determining pawn legal moves;" />
+    <MESSAGE value="v0.10 - Added bishop legal moves logic;" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.10 - Added bishop legal moves logic;" />
   </component>
 </project>
