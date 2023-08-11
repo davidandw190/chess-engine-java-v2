@@ -34,7 +34,6 @@ public class Knight extends Piece {
         int[] currentCoordinates = {this.row, this.column};
         int currentPosition = Board.findPositionByLocation(currentCoordinates);
 
-
         ArrayList<Integer> finalPositions = new ArrayList<>();
 
         for (int i=-1; i<=1; i+=2) {
