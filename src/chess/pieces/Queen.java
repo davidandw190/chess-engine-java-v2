@@ -1,11 +1,12 @@
 package chess.pieces;
 
-import chess.Board;
 import chess.Piece;
 
 import java.util.ArrayList;
 
-
+/**
+ * Represents a Queen chess piece.
+ */
 public class Queen extends Piece {
 
     public Queen(int row, int column, char color) {
@@ -40,29 +41,6 @@ public class Queen extends Piece {
 
         return legalMoves;
     }
-//
-//    private void calculateLegalMovesInDirection(ArrayList<int[]> legalMoves, char oppositeColor, int[] direction) {
-//        int legalRow = direction[0];
-//        int legalColumn = direction[1];
-//
-//        while (isValidPosition(legalRow, legalColumn)) {
-//            int[] coordinates = {legalRow, legalColumn};
-//            Piece occupyingPiece = Board.boardPieces.get(Board.findPositionByLocation(coordinates));
-//
-//            if (occupyingPiece.color == this.color) {
-//                break;
-//
-//            } else if (occupyingPiece.color == oppositeColor) {
-//                legalMoves.add(coordinates);
-//                break;
-//            } else {
-//                legalMoves.add(coordinates);
-//            }
-//
-//            legalRow += direction[0];
-//            legalColumn += direction[1];
-//        }
-//    }
 
 
     @Override

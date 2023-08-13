@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.10 - Added bishop legal moves logic;">
-      <change beforePath="$PROJECT_DIR$/src/chess/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Piece.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/pieces/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/pieces/Rook.java" afterDir="false" />
-    </list>
+    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.11 - Added Rook and Queen legal moves logic, decreased code duplication in pieces package;" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,6 +21,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
   <component name="ProjectId" id="2SyjHDmzR2HlqbPLTfKPbZDccBN" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -76,6 +75,7 @@
       <workItem from="1691088516970" duration="4346000" />
       <workItem from="1691317856171" duration="5040000" />
       <workItem from="1691594377875" duration="3726000" />
+      <workItem from="1691779147826" duration="5149000" />
     </task>
     <task id="LOCAL-00001" summary="v0.1 - Bootstrapped application;">
       <option name="closed" value="true" />
@@ -141,7 +141,15 @@
       <option name="project" value="LOCAL" />
       <updated>1691595951504</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="v0.11 - Added Rook and Queen legal moves logic, decreased code duplication in pieces package;">
+      <option name="closed" value="true" />
+      <created>1691784262075</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1691784262075</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,6 +164,7 @@
     <MESSAGE value="v0.6 - Worked on legal moves, and rest of the pieces;" />
     <MESSAGE value="v0.7 - Added logic for determining pawn legal moves;" />
     <MESSAGE value="v0.10 - Added bishop legal moves logic;" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.10 - Added bishop legal moves logic;" />
+    <MESSAGE value="v0.11 - Added Rook and Queen legal moves logic, decreased code duplication in pieces package;" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.11 - Added Rook and Queen legal moves logic, decreased code duplication in pieces package;" />
   </component>
 </project>

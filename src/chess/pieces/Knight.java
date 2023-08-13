@@ -5,6 +5,9 @@ import chess.Piece;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Knight chess piece.
+ */
 public class Knight extends Piece {
 
     public Knight(int row, int column, char color) {
