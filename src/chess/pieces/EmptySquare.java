@@ -4,6 +4,9 @@ import chess.Piece;
 
 import java.util.ArrayList;
 
+/**
+ * Represents an unoccupied square on the chess board.
+ */
 public class EmptySquare extends Piece {
 
     public EmptySquare(int row, int column) {
@@ -18,7 +21,7 @@ public class EmptySquare extends Piece {
 
     @Override
     public ArrayList<int[]> legalMoves() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

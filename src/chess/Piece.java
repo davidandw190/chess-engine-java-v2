@@ -2,11 +2,12 @@ package chess;
 
 import java.util.ArrayList;
 
+/**
+ * Abstract class representing a chess piece.
+ */
 public abstract class Piece {
-
     public String name;
     public String symbol;
-
     public String movementPattern;
     public int value;
     public int row;
@@ -26,6 +27,73 @@ public abstract class Piece {
         this.hasMoved = false;
     }
 
+    /**
+     * Abstract method to calculate legal moves for the piece.
+     *
+     * @return An ArrayList of legal move coordinates.
+     */
+    public abstract ArrayList<int[]> legalMoves();
+
+    /**
+     * Abstract method to move the piece on the board.
+     *
+     * @param piece The piece to move.
+     * @param endPosition The destination position.
+     */
+    public abstract void move(char piece, char[] endPosition);
+
+    /**
+     * Gets the color of the opposite player.
+     *
+     * @return The opposite color.
+     */
+    public char getOppositeColor() {
+        if (this.color != ' ') {
+            return (this.color == 'w') ? 'b' : 'w';
+        }
+        return ' ';
+    }
+
+    /**
+     * Calculates legal moves in a specific direction and adds them to the list.
+     *
+     * @param legalMoves The list to add legal moves to.
+     * @param oppositeColor The opposite color.
+     * @param direction The direction to calculate moves in.
+     */
+    protected void calculateLegalMovesInDirection(ArrayList<int[]> legalMoves, char oppositeColor, int[] direction) {
+        int possiblePositionRow = this.row + direction[0];
+        int possiblePositionColumn = this.column + direction[1];
+
+        while (isValidPosition(possiblePositionRow, possiblePositionColumn)) {
+            int[] coordinates = {possiblePositionRow, possiblePositionColumn};
+            Piece piece = Board.boardPieces.get(Board.findPositionByLocation(coordinates));
+
+            if (piece.color == color) {
+                break;
+            } else if (piece.color == oppositeColor) {
+                legalMoves.add(coordinates);
+                break;
+            } else {
+                legalMoves.add(coordinates);
+            }
+
+            possiblePositionRow += direction[0];
+            possiblePositionColumn += direction[1];
+        }
+    }
+
+    /**
+     * Checks if a given position is within the board bounds.
+     *
+     * @param row The row position.
+     * @param column The column position.
+     * @return true if the position is valid, false otherwise.
+     */
+    protected boolean isValidPosition(int row, int column) {
+        return row >= 0 && row < 8 && column >= 0 && column < 8;
+    }
+
     public void setPosition(int row, int column) {
         this.row = row;
         this.column = column;
@@ -40,53 +108,6 @@ public abstract class Piece {
     }
 
     public void setSymbol(String symbol){
-        this.symbol= symbol;
+        this.symbol = symbol;
     }
-
-    // abstract methods
-
-    public abstract ArrayList<int[]> legalMoves();
-
-    public abstract void move(char piece, char[] endPosition);
-
-    public char getOppositeColor() {
-        if (this.color != ' ') {
-            return (this.color == 'w') ? 'b' : 'w';
-        }
-        return ' ';
-    }
-
-
-    protected void calculateLegalMovesInDirection(ArrayList<int[]> legalMoves, char oppositeColor, int[] direction) {
-        int legalRow = this.row + direction[0];
-        int legalColumn = this.column + direction[1];
-
-        while (isValidPosition(legalRow, legalColumn )) {
-            int[] coordinates = {legalRow, legalColumn };
-            Piece piece = Board.boardPieces.get(Board.findPositionByLocation(coordinates));
-
-            if (piece.color == color) {
-                break;
-            } else if (piece.color == oppositeColor) {
-                legalMoves.add(coordinates);
-                break;
-            } else {
-                legalMoves.add(coordinates);
-            }
-
-            legalRow += direction[0];
-            legalColumn += direction[1];
-        }
-    }
-
-    private boolean isValidPosition(int row, int column) {
-        return row >= 0 && row < 8 && column >= 0 && column < 8;
-    }
-
-
-
-
-
-
-
 }

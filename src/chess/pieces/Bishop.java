@@ -4,6 +4,9 @@ import chess.Piece;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Rook chess piece.
+ */
 public class Bishop extends Piece {
 
     public Bishop(int row, int column, char color) {

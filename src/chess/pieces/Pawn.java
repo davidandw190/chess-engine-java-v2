@@ -5,7 +5,9 @@ import chess.Piece;
 
 import java.util.ArrayList;
 
-
+/**
+ * Represents a Pawn chess piece.
+ */
 public class Pawn extends Piece {
 
 
