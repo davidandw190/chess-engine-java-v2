@@ -42,9 +42,4 @@ public class Queen extends Piece {
         return legalMoves;
     }
 
-
-    @Override
-    public void move(char piece, char[] endPosition) {
-
-    }
 }

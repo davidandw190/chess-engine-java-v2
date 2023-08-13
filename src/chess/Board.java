@@ -2,37 +2,45 @@ package chess;
 
 import chess.pieces.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 
+/**
+ * The Board class represents the chessboard and its operations.
+ * It manages the arrangement of pieces, legal moves, and check conditions.
+ */
 public class Board {
 
+    /* All the pieces on the chessboard */
     public static ArrayList<Piece> boardPieces = new ArrayList<>();
 
-    public static ArrayList<Piece> initialiseWhitePieces() {
-        ArrayList<Piece> white = new ArrayList<>();
-
-        for (Piece boardPiece : boardPieces) {
-            if (boardPiece.color == 'w') {
-                white.add(boardPiece);
-            }
-        }
-        return white;
+    /**
+     * Retrieves the list of white pieces from the current board configuration.
+     *
+     * @return  An ArrayList containing all white pieces on the board.
+     */
+    public static ArrayList<Piece> getWhitePieces() {
+        return getPiecesByColor('w');
     }
 
-    public static ArrayList<Piece> initialiseBlackPieces() {
-        ArrayList<Piece> black = new ArrayList<>();
-
-        for (Piece boardPiece : boardPieces) {
-            if (boardPiece.color == 'b') {
-                black.add(boardPiece);
-            }
-        }
-        return black;
+    /**
+     * Retrieves the list of black pieces from the current board configuration.
+     *
+     * @return  An ArrayList containing all black pieces on the board.
+     */
+    public static ArrayList<Piece> getBlackPieces() {
+        return getPiecesByColor('b');
     }
 
-    public static void setBoard(String pattern) {
+    /**
+     * initializes the chessboard based on the given FEN notation.
+     *
+     * It parses the FEN notation to initialize the positions of pieces on the board.
+     * It processes each character in the FEN string to create the corresponding Piece objects and places them
+     * in the allPieces list, updating their positions accordingly.
+     *
+     * @param pattern   The FEN notation representing the initial board configuration.
+     */
+    public static void initializeBoard(String pattern) {
         for (int i = 0; i < pattern.length(); i++) {
 
             char c = pattern.charAt(i);
@@ -55,7 +63,7 @@ public class Board {
                 case '/' -> {} // Do nothing for '/'
 
                 default -> {
-                    // to handle numeric characters (ASCII 48-57)
+                    /* to handle numeric characters (ASCII 48-57) */
                     if (Character.isDigit(c)) {
 
                         int emptySquareCount = c - '0';
@@ -75,6 +83,16 @@ public class Board {
 
     }
 
+    /**
+     * Moves a piece to the specified final position on the board.
+     *
+     * It performs the movement of a piece to a given position on the board,
+     * handling piece swaps and updating their positions accordingly.
+     *
+     * @param board             The current board configuration.
+     * @param indexPiece        The index of the piece in the boardPieces list.
+     * @param finalPosition     The final position to move the piece to.
+     */
     public static void move(ArrayList<Piece> board, int indexPiece, int[] finalPosition) {
         Piece piece = board.get(indexPiece);
         int indexFinal = findPositionByLocation(finalPosition);
@@ -87,6 +105,16 @@ public class Board {
 
     }
 
+    /**
+     * Finds the attack moves available for the given chess piece.
+     *
+     * It computes and returns a list of attack moves for the specified piece,
+     * taking into account the piece's type and current board configuration. For pawn pieces,
+     * the method returns null since pawn attacks are handled differently.
+     *
+     * @param piece     The chess piece for which to find attack moves.
+     * @return          An ArrayList of attack move coordinates or null for pawn pieces.
+     */
     public static ArrayList<int[]> findAttacks(Piece piece){
         if (piece.name.equals("Pawn")) {
             Pawn pawn = (Pawn) piece;
@@ -98,6 +126,16 @@ public class Board {
         }
     }
 
+    /**
+     * Finds the legal moves available for the given piece.
+     *
+     * It determines and returns a list of legal move coordinates for the specified piece,
+     * based on its type and the current board configuration. It delegates to specific methods
+     * for each piece type to compute their individual legal moves.
+     *
+     * @param piece     The chess piece for which to find legal moves.
+     * @return          An ArrayList of legal move coordinates.
+     */
     private static ArrayList<int[]> findLegalMoves(Piece piece) {
         ArrayList<int[]> legalMoves;
 
@@ -135,6 +173,35 @@ public class Board {
     }
 
 
+    public static ArrayList<int[]> excludeSelfChecks(ArrayList<int[]> legalMoves, int intPiece, double turn) {
+        ArrayList<Piece> originalPositions = boardPieces;
+        ArrayList<int[]> checkedLegalMoved = new ArrayList<>();
+
+        Piece piece = boardPieces.get(intPiece);
+        char oppositeColor = piece.getOppositeColor();
+
+        try {
+            Piece king = findKing(piece.getColor(), originalPositions);
+
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+
+        for (int[] legalMove : legalMoves) {
+            if (isLegalMoveAvoidingCheck(intPiece, legalMove, originalPositions, oppositeColor)) {
+                checkedLegalMoved.add(legalMove);
+            }
+        }
+
+        return checkedLegalMoved;
+    }
+
+    private static boolean isLegalMoveAvoidingCheck(int intPiece, int[] legalMove, ArrayList<Piece> originalPositions, char oppositeColor) {
+        // TODO finish this, bruh..
+        return false;
+    }
+
+
     public static int findPositionByLocation(int[] coords) {
         return (8 * coords[0]) + coords[1];
     }
@@ -144,6 +211,26 @@ public class Board {
         int row = (int) Math.floor(location / 8.0);
         int column = location % 8;
         return new int[] {row, column};
+    }
+
+    private static ArrayList<Piece> getPiecesByColor(char color) {
+        ArrayList<Piece> pieces = new ArrayList<>();
+        for (Piece piece : boardPieces) {
+            if (piece.getColor() == color) {
+                pieces.add(piece);
+            }
+        }
+        return pieces;
+    }
+
+    private static Piece findKing(char color, ArrayList<Piece> boardPieces) throws Exception {
+        for (Piece piece : boardPieces) {
+            if (piece.name.equals("King") && piece.color == color) {
+                return piece;
+            }
+        }
+        /* this exception should normally never be thrown !! */
+        throw new Exception(String.format("King for color %s could not be found!", color));
     }
 
 

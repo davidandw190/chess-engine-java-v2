@@ -1,5 +1,7 @@
 package chess;
 
+import jdk.jfr.DataAmount;
+
 import java.util.ArrayList;
 
 /**
@@ -33,14 +35,6 @@ public abstract class Piece {
      * @return An ArrayList of legal move coordinates.
      */
     public abstract ArrayList<int[]> legalMoves();
-
-    /**
-     * Abstract method to move the piece on the board.
-     *
-     * @param piece The piece to move.
-     * @param endPosition The destination position.
-     */
-    public abstract void move(char piece, char[] endPosition);
 
     /**
      * Gets the color of the opposite player.
@@ -109,5 +103,37 @@ public abstract class Piece {
 
     public void setSymbol(String symbol){
         this.symbol = symbol;
+    }
+
+    public char getColor() {
+        return this.color;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public String getMovementPattern() {
+        return movementPattern;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public boolean isHasMoved() {
+        return hasMoved;
     }
 }

@@ -167,8 +167,4 @@ public class Pawn extends Piece {
         return position >= 0 && position < 64;
     }
 
-    @Override
-    public void move(char piece, char[] endPosition) {
-
-    }
 }

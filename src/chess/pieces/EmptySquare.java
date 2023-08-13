@@ -24,6 +24,4 @@ public class EmptySquare extends Piece {
         return new ArrayList<>();
     }
 
-    @Override
-    public void move(char piece, char[] endPosition) {}
 }
