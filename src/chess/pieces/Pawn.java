@@ -73,8 +73,6 @@ public class Pawn extends Piece {
      */
     public ArrayList<int[]> attacks() {
         ArrayList<int[]> attacks = new ArrayList<>();
-
-        char oppositeColor = (this.color == 'w') ? 'b' : 'w';
         int moveDirection = (this.color == 'w') ? -1 : 1;
 
         int [] currentCoords = {this.row, this.column};
@@ -83,8 +81,8 @@ public class Pawn extends Piece {
         int diagonalLeftPosition = currentPosition + 7 * moveDirection;
         int diagonalRightPosition = currentPosition + 9 * moveDirection;
 
-        handleDiagonalAttack(diagonalLeftPosition, oppositeColor, attacks);
-        handleDiagonalAttack(diagonalRightPosition, oppositeColor, attacks);
+        handleDiagonalAttack(diagonalLeftPosition, attacks);
+        handleDiagonalAttack(diagonalRightPosition, attacks);
 
         return attacks;
     }
@@ -129,8 +127,8 @@ public class Pawn extends Piece {
         // to handle diagonal attacks for pawn
         int diagonalLeft = currentPosition + 7 * moveDirection;
         int diagonalRight = currentPosition + 9 * moveDirection;
-        handleDiagonalAttack(diagonalLeft, color, legalMoves);
-        handleDiagonalAttack(diagonalRight, color, legalMoves);
+        handleDiagonalAttack(diagonalLeft, legalMoves);
+        handleDiagonalAttack(diagonalRight, legalMoves);
 
         // TODO to handle en passant capture
         // ............
@@ -141,16 +139,15 @@ public class Pawn extends Piece {
 
 
     /**
-     * Handles diagonal attacks for the pawn and adds legal moves to the list.
+     * Handles diagonal attacks for the pawn and adds the attacks as legal moves if they result in an ememy piece biegn taken.
      *
      * @param diagonalPosition The position to check for diagonal attack.
-     * @param color            The color of the pawn ('w' for white, 'b' for black).
      * @param legalMoves       The ArrayList to store legal moves.
      */
-    private void handleDiagonalAttack(int diagonalPosition, char color, ArrayList<int[]> legalMoves) {
+    private void handleDiagonalAttack(int diagonalPosition, ArrayList<int[]> legalMoves) {
         if (isWithinBoardBounds(diagonalPosition)) {
             Piece diagonalPiece = Board.boardPieces.get(diagonalPosition);
-            if ( (Math.abs(diagonalPiece.row - this.row) == 1) && (diagonalPiece.color != color)) {
+            if ( (Math.abs(diagonalPiece.row - this.row) == 1) && (diagonalPiece.color == this.getOppositeColor())) {
                 int[] legalMove = {diagonalPiece.row, diagonalPiece.column};
                 legalMoves.add(legalMove);
             }

@@ -89,15 +89,15 @@ public class Board {
      * It performs the movement of a piece to a given position on the board,
      * handling piece swaps and updating their positions accordingly.
      *
-     * @param board             The current board configuration.
+     * @param boardState             The current board configuration.
      * @param indexPiece        The index of the piece in the boardPieces list.
      * @param finalPosition     The final position to move the piece to.
      */
-    public static void move(ArrayList<Piece> board, int indexPiece, int[] finalPosition) {
-        Piece piece = board.get(indexPiece);
+    public static void move(ArrayList<Piece> boardState, int indexPiece, int[] finalPosition) {
+        Piece piece = boardState.get(indexPiece);
         int indexFinal = findPositionByLocation(finalPosition);
-        EmptySquare emptySquare = (EmptySquare) board.get(indexFinal);
-        Collections.swap(board, indexPiece, indexFinal);
+        EmptySquare emptySquare = (EmptySquare) boardState.get(indexFinal);
+        Collections.swap(boardState, indexPiece, indexFinal);
         int[] initial = findCoordinates(indexPiece);
 
         emptySquare.setPosition(initial[0], initial[1]); //
@@ -116,14 +116,7 @@ public class Board {
      * @return          An ArrayList of attack move coordinates or null for pawn pieces.
      */
     public static ArrayList<int[]> findAttacks(Piece piece){
-        if (piece.name.equals("Pawn")) {
-            Pawn pawn = (Pawn) piece;
-            return null;
-        }
-        else{
             return findLegalMoves(piece);
-
-        }
     }
 
     /**
@@ -154,7 +147,7 @@ public class Board {
             }
             case "Rook" -> {
                 Rook thisRook = (Rook) piece;
-                legalMoves= thisRook.legalMoves();
+                legalMoves = thisRook.legalMoves();
             }
             case "Queen" -> {
                 Queen thisQueen = (Queen) piece;
@@ -173,34 +166,78 @@ public class Board {
     }
 
 
-    public static ArrayList<int[]> excludeSelfChecks(ArrayList<int[]> legalMoves, int intPiece, double turn) {
+    public static ArrayList<int[]> excludeSelfChecks(ArrayList<int[]> legalMoves, int indexPiece, double turn) {
         ArrayList<Piece> originalPositions = boardPieces;
-        ArrayList<int[]> checkedLegalMoved = new ArrayList<>();
+        ArrayList<int[]> checkedLegalMoves = new ArrayList<>();
 
-        Piece piece = boardPieces.get(intPiece);
+        Piece piece = boardPieces.get(indexPiece);
         char oppositeColor = piece.getOppositeColor();
 
-        try {
-            Piece king = findKing(piece.getColor(), originalPositions);
-
-        } catch (Exception e) {
-            return new ArrayList<>();
-        }
-
         for (int[] legalMove : legalMoves) {
-            if (isLegalMoveAvoidingCheck(intPiece, legalMove, originalPositions, oppositeColor)) {
-                checkedLegalMoved.add(legalMove);
+            if (isLegalMoveAvoidingCheck(indexPiece, legalMove, originalPositions, oppositeColor)) {
+                checkedLegalMoves.add(legalMove);
             }
         }
 
-        return checkedLegalMoved;
+        return checkedLegalMoves;
     }
 
-    private static boolean isLegalMoveAvoidingCheck(int intPiece, int[] legalMove, ArrayList<Piece> originalPositions, char oppositeColor) {
-        // TODO finish this, bruh..
+    private static boolean isLegalMoveAvoidingCheck(int indexPiece, int[] legalMove, ArrayList<Piece> originalPositions, char oppositeColor) {
+
+        /* copy of the original positions on the board at that particular point in time, used for simulating the move */
+        ArrayList<Piece> possiblePositions = new ArrayList<>(originalPositions);
+        int indexLegal = findPositionByLocation(legalMove);
+        Piece currentPiece = boardPieces.get(indexPiece);
+
+        Piece capturedSquare = possiblePositions.get(indexLegal);
+        boolean isThereCapturedPiece = (capturedSquare.getColor() != ' ');
+
+        if (isThereCapturedPiece) {
+            possiblePositions.set(indexLegal, new EmptySquare());
+        }
+
+        possiblePositions.set(indexPiece, new EmptySquare());
+
+        movePiece(possiblePositions, indexPiece, legalMove);
+
+        /* we check if the king's position is not in check after the move. */
+        boolean legalMoveAvoidsCheck = !isInCheck(possiblePositions, currentPiece.getColor());
+
+        /* we restore the original positions of the pieces after the move simulation */
+        if (legalMoveAvoidsCheck) {
+            possiblePositions.set(indexLegal, capturedSquare);
+        }
+        possiblePositions.set(indexPiece, boardPieces.get(indexPiece));
+
+        return legalMoveAvoidsCheck;
+    }
+
+    private static void movePiece(ArrayList<Piece> board, int indexPiece, int[] finalPosition) {
+        Piece piece = board.get(indexPiece);
+        board.set(findPositionByLocation(finalPosition), piece);
+        piece.setPosition(finalPosition[0], finalPosition[1]);
+    }
+
+    private static boolean isInCheck(ArrayList<Piece> currentPositions, char color) {
+
+
+        Piece king = findKing(color, currentPositions);
+
+        ArrayList<Piece> oppositePieces = (color == 'w') ? getBlackPieces() : getWhitePieces();
+
+        for (Piece oppositePiece : oppositePieces) {
+            ArrayList<int[]> attacks = findAttacks(oppositePiece);
+
+            for (int[] attack : attacks) {
+                if ((attack[0] == king.getRow()) && (attack[1] == king.getColumn())) {
+                    return true;
+                }
+            }
+
+        }
+
         return false;
     }
-
 
     public static int findPositionByLocation(int[] coords) {
         return (8 * coords[0]) + coords[1];
@@ -223,14 +260,15 @@ public class Board {
         return pieces;
     }
 
-    private static Piece findKing(char color, ArrayList<Piece> boardPieces) throws Exception {
+    private static Piece findKing(char color, ArrayList<Piece> boardPieces) {
         for (Piece piece : boardPieces) {
             if (piece.name.equals("King") && piece.color == color) {
                 return piece;
             }
         }
-        /* this exception should normally never be thrown !! */
-        throw new Exception(String.format("King for color %s could not be found!", color));
+
+        System.out.printf("King for color `%s` could not be found for some reason!!", color);
+        return new EmptySquare();
     }
 
 
