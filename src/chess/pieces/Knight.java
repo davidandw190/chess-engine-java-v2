@@ -55,7 +55,7 @@ public class Knight extends Piece {
         for (int finalPosition : finalPositions) {
             if (isWithinBoardBounds(finalPosition)) {
                 Piece atFinal = Board.boardPieces.get(finalPosition);
-                if (atFinal.color != color) {
+                if (atFinal.getColor() != color) {
                     int[] legalMove = Board.findCoordinates(finalPosition);
                     if ((Math.abs(legalMove[0] - row) <= 2) && (Math.abs(column - legalMove[1]) <= 2)) {
                         legalMoves.add(legalMove);

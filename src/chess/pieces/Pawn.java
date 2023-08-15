@@ -108,8 +108,8 @@ public class Pawn extends Piece {
         if (isWithinBoardBounds(singleStepAhead)) {
             Piece pieceInFront = Board.boardPieces.get(singleStepAhead);
 
-            if (pieceInFront.symbol.equals(" ")) {
-                int[] legalMove = {pieceInFront.row, pieceInFront.column};
+            if (pieceInFront.getSymbol().equals(" ")) {
+                int[] legalMove = {pieceInFront.getRow(), pieceInFront.getColumn()};
                 legalMoves.add(legalMove);
             }
 
@@ -117,8 +117,8 @@ public class Pawn extends Piece {
             if ((this.row == 6 && color == 'w') || (this.row == 1 && color == 'b')) {
                 int doubleStepAhead = currentPosition + 16 * moveDirection;
                 Piece pieceTwoAhead = Board.boardPieces.get(doubleStepAhead);
-                if (pieceTwoAhead.symbol.equals(" ")) {
-                    int[] legalMove2 = {pieceTwoAhead.row, pieceTwoAhead.column};
+                if (pieceTwoAhead.getSymbol().equals(" ")) {
+                    int[] legalMove2 = {pieceTwoAhead.getRow(), pieceTwoAhead.getColumn()};
                     legalMoves.add(legalMove2);
                 }
             }
@@ -147,8 +147,8 @@ public class Pawn extends Piece {
     private void handleDiagonalAttack(int diagonalPosition, ArrayList<int[]> legalMoves) {
         if (isWithinBoardBounds(diagonalPosition)) {
             Piece diagonalPiece = Board.boardPieces.get(diagonalPosition);
-            if ( (Math.abs(diagonalPiece.row - this.row) == 1) && (diagonalPiece.color == this.getOppositeColor())) {
-                int[] legalMove = {diagonalPiece.row, diagonalPiece.column};
+            if ( (Math.abs(diagonalPiece.getRow() - this.row) == 1) && (diagonalPiece.getColor() == this.getOppositeColor())) {
+                int[] legalMove = {diagonalPiece.getRow(), diagonalPiece.getColumn()};
                 legalMoves.add(legalMove);
             }
         }
