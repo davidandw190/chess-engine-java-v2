@@ -10,8 +10,11 @@ import java.util.*;
  */
 public class Board {
 
+    private static final int BOARD_SIZE = 8;
+
     /* All the pieces on the chessboard */
     public static ArrayList<Piece> boardPieces = new ArrayList<>();
+
 
     /**
      * Retrieves the list of white pieces from the current board configuration.
@@ -22,6 +25,7 @@ public class Board {
         return getPiecesByColor('w');
     }
 
+
     /**
      * Retrieves the list of black pieces from the current board configuration.
      *
@@ -30,6 +34,7 @@ public class Board {
     public static ArrayList<Piece> getBlackPieces() {
         return getPiecesByColor('b');
     }
+
 
     /**
      * initializes the chessboard based on the given FEN notation.
@@ -105,6 +110,7 @@ public class Board {
 
     }
 
+
     /**
      * Finds the attack moves available for the given chess piece.
      *
@@ -119,6 +125,7 @@ public class Board {
             return findLegalMoves(piece);
     }
 
+
     /**
      * Finds the legal moves available for the given piece.
      *
@@ -132,7 +139,7 @@ public class Board {
     private static ArrayList<int[]> findLegalMoves(Piece piece) {
         ArrayList<int[]> legalMoves;
 
-        switch (piece.name) {
+        switch (piece.getName()) {
             case "Pawn" -> {
                 Pawn thisPawn = (Pawn) piece;
                 legalMoves = thisPawn.legalMoves();
@@ -165,6 +172,7 @@ public class Board {
         return legalMoves;
     }
 
+
     /**
      * Excludes moves that would result in self-check situations.
      *
@@ -177,9 +185,6 @@ public class Board {
         ArrayList<Piece> originalPositions = boardPieces;
         ArrayList<int[]> checkedLegalMoves = new ArrayList<>();
 
-        Piece piece = boardPieces.get(indexPiece);
-//        char oppositeColor = piece.getOppositeColor();
-
         for (int[] legalMove : legalMoves) {
             if (isLegalMoveAvoidingCheck(indexPiece, legalMove, originalPositions, turn)) {
                 checkedLegalMoves.add(legalMove);
@@ -188,6 +193,7 @@ public class Board {
 
         return checkedLegalMoves;
     }
+
 
     /**
      * Checks if the current player is in checkmate.
@@ -213,6 +219,7 @@ public class Board {
         return isCheck(currentPosition, turn);
     }
 
+
     /**
      * Checks if the current player is in a stalemate position.
      *
@@ -232,13 +239,14 @@ public class Board {
 
             ArrayList<int[]> remainingPieceLegalMoves = excludeSelfChecks(pieceLegalMoves, indexPiece, turn);
 
-            if (!pieceLegalMoves.isEmpty()) {
+            if (!remainingPieceLegalMoves.isEmpty()) {
                 return false;
             }
         }
 
         return !isCheck(currentPosition, turn);
     }
+
 
     /**
      * Checks if a move is legal and avoids putting the player's king in check.
@@ -253,7 +261,6 @@ public class Board {
         /* Copy of the original positions on the board at that particular point in time, used for simulating the move */
         ArrayList<Piece> possiblePositions = new ArrayList<>(originalPositions);
         int indexLegal = findPositionByLocation(legalMove);
-        Piece currentPiece = boardPieces.get(indexPiece);
 
         Piece capturedSquare = possiblePositions.get(indexLegal);
         boolean isThereCapturedPiece = (capturedSquare.getColor() != ' ');
@@ -264,7 +271,7 @@ public class Board {
 
         possiblePositions.set(indexPiece, new EmptySquare());
 
-        // Using the move method to handle the move and updating positions
+        /* Simulating the move and updating positions  on the copy of the board*/
         move(possiblePositions, indexPiece, legalMove);
 
         /* Check if the king's position is not in check after the move. */
@@ -279,36 +286,40 @@ public class Board {
         return legalMoveAvoidsCheck;
     }
 
-//    private static void movePiece(ArrayList<Piece> board, int indexPiece, int[] finalPosition) {
-//        Piece piece = board.get(indexPiece);
-//        board.set(findPositionByLocation(finalPosition), piece);
-//        piece.setPosition(finalPosition[0], finalPosition[1]);
-//    }
 
-    public static boolean isCheck(ArrayList<Piece> currentPosition, double turn) {
-        ArrayList<Piece> opPieces = (turn % 1 == 0) ? getBlackPieces() : getWhitePieces();
-        ArrayList<Piece> friendly = (turn % 1 == 0) ? getWhitePieces() : getBlackPieces();
+    /**
+     * Checks if the current player's king is in check.
+     *
+     * @param currentPositions The current state of the chessboard.
+     * @param turn The current turn number.
+     * @return {@code true} if the current player's king is in check, otherwise {@code false}.
+     */
+    public static boolean isCheck(ArrayList<Piece> currentPositions, double turn) {
+        ArrayList<Piece> enemyPieces = (turn % 1 == 0) ? getBlackPieces() : getWhitePieces();
+        ArrayList<Piece> friendlyPieces = (turn % 1 == 0) ? getWhitePieces() : getBlackPieces();
 
-        Piece ourKing = null;
-        for (Piece piece : friendly) {
-            if (piece.name.equals("King")) {
-                ourKing = piece;
-                break;
-            }
+        Piece alliedKing = findKing(friendlyPieces.get(0).getColor(), currentPositions );
+
+        if (alliedKing == null) {
+            return false; // No allied king found for some reason
         }
 
-        if (ourKing == null) {
-            return false; // No friendly king found
-        }
-
-        return isAttacked(ourKing, opPieces);
+        return isAttacked(alliedKing, enemyPieces);
     }
 
-    public static boolean isAttacked(Piece p, ArrayList<Piece> attackers) {
+
+    /**
+     * Checks if a piece is attacked by any of the specified attackers.
+     *
+     * @param piece The piece to check for being attacked.
+     * @param attackers The list of pieces that could potentially attack the given piece.
+     * @return {@code true} if the piece is attacked by any of the attackers, otherwise {@code false}.
+     */
+    public static boolean isAttacked(Piece piece, ArrayList<Piece> attackers) {
         for (Piece attacker : attackers) {
             ArrayList<int[]> attacks = findAttacks(attacker);
             for (int[] attack : attacks) {
-                if (attack[0] == p.row && attack[1] == p.column) {
+                if (attack[0] == piece.getRow() && attack[1] == piece.getColumn()) {
                     return true;
                 }
             }
@@ -317,36 +328,13 @@ public class Board {
     }
 
 
-//    private static boolean isInCheck(ArrayList<Piece> currentPositions, char color) {
-//
-//
-//        Piece king = findKing(color, currentPositions);
-//
-//        ArrayList<Piece> oppositePieces = (color == 'w') ? getBlackPieces() : getWhitePieces();
-//
-//        for (Piece oppositePiece : oppositePieces) {
-//            ArrayList<int[]> attacks = findAttacks(oppositePiece);
-//
-//            for (int[] attack : attacks) {
-//                if ((attack[0] == king.getRow()) && (attack[1] == king.getColumn())) {
-//                    return true;
-//                }
-//            }
-//
-//        }
-//
-//        return false;
-//    }
-
-
     public static int findPositionByLocation(int[] coords) {
-        return (8 * coords[0]) + coords[1];
+        return (coords[0] * BOARD_SIZE) + coords[1];
     }
 
-
     public static int[] findCoordinates(int location) {
-        int row = (int) Math.floor(location / 8.0);
-        int column = location % 8;
+        int row = location / BOARD_SIZE;
+        int column = location % BOARD_SIZE;
         return new int[] {row, column};
     }
 
@@ -362,7 +350,7 @@ public class Board {
 
     private static Piece findKing(char color, ArrayList<Piece> boardPieces) {
         for (Piece piece : boardPieces) {
-            if (piece.name.equals("King") && piece.color == color) {
+            if ((piece instanceof  King) && (piece.getColor() == color)) {
                 return piece;
             }
         }

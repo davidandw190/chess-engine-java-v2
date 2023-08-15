@@ -64,7 +64,7 @@ public class King extends Piece {
             int[] coords = {newPositionRow, newPositionColumn};
             Piece targetPiece = Board.boardPieces.get(Board.findPositionByLocation(coords));
 
-            if (targetPiece.color != this.color) {
+            if (targetPiece.getColor() != this.color) {
                 legalMoves.add(coords);
             }
         }

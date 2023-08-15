@@ -1,6 +1,5 @@
 package chess;
 
-import jdk.jfr.DataAmount;
 
 import java.util.ArrayList;
 
@@ -8,14 +7,14 @@ import java.util.ArrayList;
  * Abstract class representing a chess piece.
  */
 public abstract class Piece {
-    public String name;
-    public String symbol;
-    public String movementPattern;
-    public int value;
-    public int row;
-    public int column;
-    public char color;
-    public boolean hasMoved;
+    protected String name;
+    protected String symbol;
+    protected String movementPattern;
+    protected int value;
+    protected int row;
+    protected int column;
+    protected char color;
+    protected boolean hasMoved;
 
     public Piece(char color) {
         this.color = color;
