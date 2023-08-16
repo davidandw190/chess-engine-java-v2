@@ -65,28 +65,28 @@ public class Pawn extends Piece {
         }
 
     }
-
-    /**
-     * Calculates and returns a list of attack moves for the pawn piece on the chessboard.
-     *
-     * @return An ArrayList containing the row and column coordinates of attack moves.
-     */
-    public ArrayList<int[]> attacks() {
-        ArrayList<int[]> attacks = new ArrayList<>();
-        int moveDirection = (this.color == 'w') ? -1 : 1;
-
-        int [] currentCoords = {this.row, this.column};
-        int currentPosition = Board.findPositionByLocation(currentCoords);
-
-        int diagonalLeftPosition = currentPosition + 7 * moveDirection;
-        int diagonalRightPosition = currentPosition + 9 * moveDirection;
-
-        handleDiagonalAttack(diagonalLeftPosition, attacks);
-        handleDiagonalAttack(diagonalRightPosition, attacks);
-
-        return attacks;
-    }
-
+//
+//    /**
+//     * Calculates and returns a list of attack moves for the pawn piece on the chessboard.
+//     *
+//     * @return An ArrayList containing the row and column coordinates of attack moves.
+//     */
+//    public ArrayList<int[]> attacks() {
+//        ArrayList<int[]> attacks = new ArrayList<>();
+//        int moveDirection = (this.color == 'w') ? -1 : 1;
+//
+//        int [] currentCoords = {this.row, this.column};
+//        int currentPosition = Board.findPositionByLocation(currentCoords);
+//
+//        int diagonalLeftPosition = currentPosition + 7 * moveDirection;
+//        int diagonalRightPosition = currentPosition + 9 * moveDirection;
+//
+//        handleDiagonalAttack(diagonalLeftPosition, attacks);
+//        handleDiagonalAttack(diagonalRightPosition, attacks);
+//
+//        return attacks;
+//    }
+//
 
     /**
      * Calculates and returns a list of legal moves for the pawn piece on the chessboard.
@@ -97,6 +97,7 @@ public class Pawn extends Piece {
     public ArrayList<int[]> legalMoves() {
         ArrayList<int[]> legalMoves = new ArrayList<>();
         char color = this.color;
+        char oppositeColor = getOppositeColor();
         int moveDirection = (color == 'w') ? -1 : 1;
 
         int[] currentCoords = {this.row, this.column};
@@ -127,8 +128,8 @@ public class Pawn extends Piece {
         // to handle diagonal attacks for pawn
         int diagonalLeft = currentPosition + 7 * moveDirection;
         int diagonalRight = currentPosition + 9 * moveDirection;
-        handleDiagonalAttack(diagonalLeft, legalMoves);
-        handleDiagonalAttack(diagonalRight, legalMoves);
+        handleDiagonalAttack(diagonalLeft, legalMoves, oppositeColor);
+        handleDiagonalAttack(diagonalRight, legalMoves, oppositeColor);
 
         // TODO to handle en passant capture
         // ............
@@ -144,10 +145,10 @@ public class Pawn extends Piece {
      * @param diagonalPosition The position to check for diagonal attack.
      * @param legalMoves       The ArrayList to store legal moves.
      */
-    private void handleDiagonalAttack(int diagonalPosition, ArrayList<int[]> legalMoves) {
+    private void handleDiagonalAttack(int diagonalPosition, ArrayList<int[]> legalMoves, char oppositeColor) {
         if (isWithinBoardBounds(diagonalPosition)) {
             Piece diagonalPiece = Board.boardPieces.get(diagonalPosition);
-            if ( (Math.abs(diagonalPiece.getRow() - this.row) == 1) && (diagonalPiece.getColor() == this.getOppositeColor())) {
+            if ( (Math.abs(diagonalPiece.getRow() - this.row) == 1) && (diagonalPiece.getColor() == oppositeColor)) {
                 int[] legalMove = {diagonalPiece.getRow(), diagonalPiece.getColumn()};
                 legalMoves.add(legalMove);
             }

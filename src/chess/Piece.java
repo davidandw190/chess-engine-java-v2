@@ -135,4 +135,8 @@ public abstract class Piece {
     public boolean isHasMoved() {
         return hasMoved;
     }
+
+    public int[] getCurrentPosition() {
+        return new int[] {this.row, this.column};
+    }
 }
