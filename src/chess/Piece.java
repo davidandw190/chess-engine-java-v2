@@ -24,6 +24,7 @@ public abstract class Piece {
     public Piece(String name, String symbol, char color) {
         this.name = name;
         this.symbol = symbol;
+
         this.color = color;
         this.hasMoved = false;
     }
