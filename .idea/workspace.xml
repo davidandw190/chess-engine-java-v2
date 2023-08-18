@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.17 - Added tests for white and black piecess, for moves and for find attacks;">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess-engine-java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/chess-engine-java.iml" afterDir="false" />
+    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.18 - Refactored some of the methods in Board that were causing inconsistencies when testing ;">
       <change beforePath="$PROJECT_DIR$/src/chess/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Piece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/chess/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/chess/BoardTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -179,6 +176,7 @@
       <workItem from="1692170924848" duration="10136000" />
       <workItem from="1692199188134" duration="3000" />
       <workItem from="1692260965845" duration="7631000" />
+      <workItem from="1692348583566" duration="8903000" />
     </task>
     <task id="LOCAL-00001" summary="v0.1 - Bootstrapped application;">
       <option name="closed" value="true" />
@@ -300,7 +298,15 @@
       <option name="project" value="LOCAL" />
       <updated>1692175388508</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="v0.18 - Refactored some of the methods in Board that were causing inconsistencies when testing ;">
+      <option name="closed" value="true" />
+      <created>1692361863094</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1692361863094</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +328,8 @@
     <MESSAGE value="v0.15 - Added checkForStaleMate, checkForCheckmate, isCheck and isAttacked methods in Board;" />
     <MESSAGE value="v0.16 - Small visibility improvements and added new javadocs were needed;" />
     <MESSAGE value="v0.17 - Added tests for white and black piecess, for moves and for find attacks;" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.17 - Added tests for white and black piecess, for moves and for find attacks;" />
+    <MESSAGE value="v0.18 - Refactored some of the methods in Board that were causing inconsistencies when testing ;" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.18 - Refactored some of the methods in Board that were causing inconsistencies when testing ;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

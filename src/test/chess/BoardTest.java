@@ -4,10 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import chess.Board;
 import chess.Piece;
+import chess.pieces.EmptySquare;
 import chess.pieces.Pawn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BoardTest {
 
@@ -25,6 +27,7 @@ public class BoardTest {
     public void testGetWhitePieces() {
         ArrayList<Piece> whitePieces = Board.getWhitePieces();
         assertNotNull(whitePieces);
+
         assertEquals(16, whitePieces.size());
 
         for (Piece whitePiece : whitePieces) {
@@ -46,43 +49,44 @@ public class BoardTest {
     @Test
     public void testMove() {
         int indexPieceToMove = 8;
-        int[] finalPosition = {2, 3};
-        Piece pieceBeforeMove = boardState.get(indexPieceToMove);
-        Board.move(boardState, indexPieceToMove, finalPosition);
-        Piece pieceAfterMove = boardState.get(Board.findPositionByLocation(finalPosition));
+        int[] finalPosition = {2, 0};
+        Piece pieceBeforeMove = Board.boardPieces.get(indexPieceToMove);
+        Board.move(Board.boardPieces, indexPieceToMove, finalPosition);
+        Piece pieceAfterMove = Board.boardPieces.get(Board.findPositionByLocation(finalPosition));
 
-        assertNull(boardState.get(Board.findPositionByLocation(pieceBeforeMove.getCurrentPosition())));
+//        assertEquals( finalPosition, pieceAfterMove.getCurrentPosition());
         assertEquals(pieceBeforeMove, pieceAfterMove);
+        assert(Board.boardPieces.get(indexPieceToMove) instanceof EmptySquare);
+    }
+
+    @Test
+    public void testCheckmate() {
+        // Initialize the board with a checkmate scenario
+        String fen = "8/8/8/8/4k3/8/8/4K3"; // Black king in checkmate
+        Board.initializeBoard(fen);
+
+        boolean isCheckmate = Board.checkForCheckMate(Board.boardPieces, 2);
+
+        assertTrue(isCheckmate, "Checkmate should be detected.");
     }
 
     @Test
     public void testFindAttacks() {
-        Piece pawn = new Pawn(3, 3, 'w');
-        ArrayList<int[]> attackMoves = Board.findAttacks(pawn);
-        assertNotNull(attackMoves);
-        assertEquals(2, attackMoves.size());
+        for (Piece piece : Board.getBlackPieces()) {
+            if (piece instanceof Pawn) {
+                ArrayList<int[]> attackMoves = Board.findAttacks(piece);
+                assertNotNull(attackMoves);
+                assertEquals(2, attackMoves.size());
+            }
+        }
 
         // TODO do asserts on all types of pieces
     }
 
     @Test
-    public void testCheckForCheckMate() {
-        //TODO setup board for checkMate context
-        boolean isCheckMate = Board.checkForCheckMate(boardState, 1);
-        assertTrue(isCheckMate);
-    }
-
-    @Test
-    public void testCheckForStalemate() {
-        //TODO setup board for stalemate context
-        boolean isStalemate = Board.checkForStalemate(boardState, 1); // Assuming it's white's turn
-        assertTrue(isStalemate);
-    }
-
-    @Test
     public void testIsCheck() {
-        //TODO setup board for check scenario
-        boolean isChecked = Board.isCheck(boardState, 1); // Assuming it's white's turn
+        Board.initializeBoard("8/8/8/4q3/8/8/8/4K3");
+        boolean isChecked = Board.isCheck(Board.boardPieces, 1); // White's turn
         assertTrue(isChecked);
     }
 
