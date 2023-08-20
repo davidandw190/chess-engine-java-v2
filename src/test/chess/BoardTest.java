@@ -9,18 +9,15 @@ import chess.pieces.Pawn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BoardTest {
 
     private static final String INITIAL_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-    private ArrayList<Piece> boardState;
 
     @BeforeEach
     public void setUp() {
-        boardState = new ArrayList<>();
         Board.initializeBoard(INITIAL_FEN);
-        boardState.addAll(Board.boardPieces);
+        ArrayList<Piece> boardState = new ArrayList<>(Board.boardPieces);
     }
 
     @Test
@@ -47,11 +44,52 @@ public class BoardTest {
     }
 
     @Test
+    public void testCheckForCheckMate() {
+        // Set up a board configuration where a checkmate occurs
+        Board.initializeBoard("4k3/8/8/8/8/8/3q4/4K3");
+        boolean isCheckmate = Board.checkForCheckMate(Board.boardPieces, 1); // White's turn
+
+        assertTrue(isCheckmate);
+    }
+
+    @Test
+    public void testCheckForStaleMate() {
+        // Set up the stalemate scenario
+        Board.initializeBoard("8/8/8/8/8/4k3/8/4K3");
+
+        // Print the board configuration for debugging
+        Board.printBoard(Board.boardPieces);
+
+        boolean isStalemate = Board.checkForStalemate(Board.boardPieces, 1); // Black's turn
+
+        assertTrue(isStalemate);
+    }
+
+
+
+    @Test
+    public void testExcludeSelfChecks() {
+        Board.initializeBoard("8/8/8/8/3q4/8/8/4K3");
+        int indexPieceToMove = 60; // The white king
+
+        ArrayList<int[]> legalMovesBefore = Board.findLegalMoves(Board.boardPieces.get(indexPieceToMove));
+        ArrayList<int[]> legalMovesAfter = Board.excludeSelfChecks(legalMovesBefore, indexPieceToMove, 1);
+
+        for (int[] move : legalMovesAfter) {
+            ArrayList<Piece> simulatedBoard = new ArrayList<>(Board.boardPieces);
+            boolean capture = Board.moveOrCapture(simulatedBoard, move, indexPieceToMove, Board.findPositionByLocation(move));
+            assertFalse(Board.isCheck(simulatedBoard, 1));
+        }
+    }
+
+
+
+    @Test
     public void testMove() {
         int indexPieceToMove = 8;
         int[] finalPosition = {2, 0};
         Piece pieceBeforeMove = Board.boardPieces.get(indexPieceToMove);
-        Board.move(Board.boardPieces, indexPieceToMove, finalPosition);
+        Board.movePiece(Board.boardPieces, indexPieceToMove, finalPosition);
         Piece pieceAfterMove = Board.boardPieces.get(Board.findPositionByLocation(finalPosition));
 
 //        assertEquals( finalPosition, pieceAfterMove.getCurrentPosition());
@@ -59,16 +97,6 @@ public class BoardTest {
         assert(Board.boardPieces.get(indexPieceToMove) instanceof EmptySquare);
     }
 
-    @Test
-    public void testCheckmate() {
-        // Initialize the board with a checkmate scenario
-        String fen = "8/8/8/8/4k3/8/8/4K3"; // Black king in checkmate
-        Board.initializeBoard(fen);
-
-        boolean isCheckmate = Board.checkForCheckMate(Board.boardPieces, 2);
-
-        assertTrue(isCheckmate, "Checkmate should be detected.");
-    }
 
     @Test
     public void testFindAttacks() {

@@ -39,7 +39,7 @@ public class Board {
 
 
     /**
-     * initializes the chessboard based on the given FEN notation.
+     * Initializes the chessboard based on the given FEN notation.
      *
      * It parses the FEN notation to initialize the positions of pieces on the board.
      * It processes each character in the FEN string to create the corresponding Piece objects and places them
@@ -142,23 +142,6 @@ public class Board {
         return verifiedLegalMoves;
     }
 
-    private static boolean moveOrCapture(ArrayList<Piece> simulatedPositions, int[] legalMove, int indexPiece, int indexLegal) {
-        Piece targetPiece = simulatedPositions.get(indexLegal);
-
-        if (targetPiece.getName().equals("Empty")){
-            movePiece(simulatedPositions, indexPiece, legalMove);
-            return false;
-        } else {
-            capture(simulatedPositions, indexPiece, legalMove);
-            return true;
-        }
-
-    }
-
-//    private static void undoMoveOrCapture(ArrayList<Piece> simulatedPositions, int indexPiece, int indexLegal, boolean capture) {
-//        /* undo the move if needed */
-//    }
-
 
     /**
      * Moves a piece to a new position and captures the opponent's piece if present.
@@ -219,8 +202,6 @@ public class Board {
         return isAttacked(alliedKing, opponentPieces);
     }
 
-
-    
 
     /**
      * Checks if a piece is attacked by any of the specified attackers.
@@ -308,7 +289,7 @@ public class Board {
      * @param piece     The chess piece for which to find legal moves.
      * @return          An ArrayList of legal move coordinates.
      */
-    private static ArrayList<int[]> findLegalMoves(Piece piece) {
+    public static ArrayList<int[]> findLegalMoves(Piece piece) {
         ArrayList<int[]> legalMoves;
 
         switch (piece.getName()) {
@@ -344,29 +325,6 @@ public class Board {
         return legalMoves;
     }
 
-    private static boolean isLegalMoveAvoidingCheck(int indexPiece, int[] legalMove, ArrayList<Piece> originalPositions, int turn) {
-        ArrayList<Piece> possiblePositions = new ArrayList<>(originalPositions);
-        int indexLegal = findPositionByLocation(legalMove);
-
-        Piece capturedSquare = possiblePositions.get(indexLegal);
-        boolean isThereCapturedPiece = (capturedSquare.getColor() != ' ');
-
-        if (isThereCapturedPiece) {
-            possiblePositions.set(indexLegal, new EmptySquare());
-        }
-
-        System.out.println("OG positions");
-        printBoard(originalPositions);
-
-        System.out.println("Possible positions");
-        printBoard(possiblePositions);
-
-        possiblePositions.set(indexPiece, new EmptySquare());
-        movePiece(possiblePositions, indexPiece, legalMove);
-
-        return !isCheck(possiblePositions, turn);
-    }
-
     private static boolean checkForEndgameCondition(ArrayList<Piece> currentBoard, int turn, boolean checkmate) {
         ArrayList<Piece> alliedPieces = (turn % 2 == 0) ? getBlackPieces() : getWhitePieces();
 
@@ -377,11 +335,24 @@ public class Board {
             ArrayList<int[]> curatedLegalMoves = excludeSelfChecks(pieceLegalMoves, indexPiece, turn);
 
             if (curatedLegalMoves.isEmpty()) {
-                return checkmate ? !isCheck(currentBoard, turn) : true;
+                return !checkmate || !isCheck(currentBoard, turn);
             }
         }
 
-        return checkmate ? isCheck(currentBoard, turn) : false;
+        return checkmate && isCheck(currentBoard, turn);
+    }
+
+    public static boolean moveOrCapture(ArrayList<Piece> simulatedPositions, int[] legalMove, int indexPiece, int indexLegal) {
+        Piece targetPiece = simulatedPositions.get(indexLegal);
+
+        if (targetPiece.getName().equals("Empty")) {
+            movePiece(simulatedPositions, indexPiece, legalMove);
+            return false;
+        } else {
+            capture(simulatedPositions, indexPiece, legalMove);
+            return true;
+        }
+
     }
 
     private static ArrayList<Piece> getPiecesByColor(char color) {
