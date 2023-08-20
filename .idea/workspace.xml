@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.17 - Added tests for white and black piecess, for moves and for find attacks;">
+    <list default="true" id="1f02d052-1eba-4ad2-94a8-12693c5d1437" name="Changes" comment="v0.19 - Improved methods for checking CheckMate, StaleMate and Check ;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chess-engine-java.iml" beforeDir="false" afterPath="$PROJECT_DIR$/chess-engine-java.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chess/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/chess/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/chess/Piece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/chess/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/chess/BoardTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +60,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BoardTest.testCheckmate">
+  <component name="RunManager" selected="JUnit.BoardTest.testIsCheck">
     <configuration name="BoardTest.testCheckForCheckMate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="chess-engine-java" />
       <extension name="coverage">
@@ -79,7 +77,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BoardTest.testCheckForStalemate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BoardTest.testCheckForStaleMate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="chess-engine-java" />
       <extension name="coverage">
         <pattern>
@@ -89,13 +87,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="test.chess" />
       <option name="MAIN_CLASS_NAME" value="test.chess.BoardTest" />
-      <option name="METHOD_NAME" value="testCheckForStalemate" />
+      <option name="METHOD_NAME" value="testCheckForStaleMate" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BoardTest.testCheckmate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BoardTest.testExcludeSelfChecks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="chess-engine-java" />
       <extension name="coverage">
         <pattern>
@@ -105,7 +103,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="test.chess" />
       <option name="MAIN_CLASS_NAME" value="test.chess.BoardTest" />
-      <option name="METHOD_NAME" value="testCheckmate" />
+      <option name="METHOD_NAME" value="testExcludeSelfChecks" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardTest.testIsAttacked" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="chess-engine-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.chess.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.chess" />
+      <option name="MAIN_CLASS_NAME" value="test.chess.BoardTest" />
+      <option name="METHOD_NAME" value="testIsAttacked" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -127,29 +141,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BoardTest.testMove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="chess-engine-java" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.chess.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.chess" />
-      <option name="MAIN_CLASS_NAME" value="test.chess.BoardTest" />
-      <option name="METHOD_NAME" value="testMove" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BoardTest.testCheckmate" />
-        <item itemvalue="JUnit.BoardTest.testMove" />
         <item itemvalue="JUnit.BoardTest.testIsCheck" />
+        <item itemvalue="JUnit.BoardTest.testIsAttacked" />
+        <item itemvalue="JUnit.BoardTest.testExcludeSelfChecks" />
+        <item itemvalue="JUnit.BoardTest.testCheckForStaleMate" />
         <item itemvalue="JUnit.BoardTest.testCheckForCheckMate" />
-        <item itemvalue="JUnit.BoardTest.testCheckForStalemate" />
       </list>
     </recent_temporary>
   </component>
@@ -179,6 +177,9 @@
       <workItem from="1692170924848" duration="10136000" />
       <workItem from="1692199188134" duration="3000" />
       <workItem from="1692260965845" duration="7631000" />
+      <workItem from="1692348583566" duration="8903000" />
+      <workItem from="1692371737054" duration="2556000" />
+      <workItem from="1692532700936" duration="1819000" />
     </task>
     <task id="LOCAL-00001" summary="v0.1 - Bootstrapped application;">
       <option name="closed" value="true" />
@@ -300,7 +301,23 @@
       <option name="project" value="LOCAL" />
       <updated>1692175388508</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="v0.18 - Refactored some of the methods in Board that were causing inconsistencies when testing ;">
+      <option name="closed" value="true" />
+      <created>1692361863094</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1692361863094</updated>
+    </task>
+    <task id="LOCAL-00017" summary="v0.19 - Improved methods for checking CheckMate, StaleMate and Check ;">
+      <option name="closed" value="true" />
+      <created>1692375996795</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1692375996795</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +339,9 @@
     <MESSAGE value="v0.15 - Added checkForStaleMate, checkForCheckmate, isCheck and isAttacked methods in Board;" />
     <MESSAGE value="v0.16 - Small visibility improvements and added new javadocs were needed;" />
     <MESSAGE value="v0.17 - Added tests for white and black piecess, for moves and for find attacks;" />
-    <option name="LAST_COMMIT_MESSAGE" value="v0.17 - Added tests for white and black piecess, for moves and for find attacks;" />
+    <MESSAGE value="v0.18 - Refactored some of the methods in Board that were causing inconsistencies when testing ;" />
+    <MESSAGE value="v0.19 - Improved methods for checking CheckMate, StaleMate and Check ;" />
+    <option name="LAST_COMMIT_MESSAGE" value="v0.19 - Improved methods for checking CheckMate, StaleMate and Check ;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
